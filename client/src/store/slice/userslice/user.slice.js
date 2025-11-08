@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUserThunk } from "./user.thunk";
+import fetchUserThunk from "./user.thunk";
 
 export const userSlice = createSlice({
   name: "user",
@@ -8,18 +8,18 @@ export const userSlice = createSlice({
   },
   reducers: {
     login: () => {
-      
+      console.log("hi login");
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUserThunk.pending, (state, action) => {
-      state.entities.push(action.payload);
+      console.log("pending");
     });
     builder.addCase(fetchUserThunk.fulfilled, (state, action) => {
-      state.entities.push(action.payload);
+      console.log("fulfilled");
     });
     builder.addCase(fetchUserThunk.rejected, (state, action) => {
-      state.entities.push(action.payload);
+      console.log("rejected");
     });
   },
 });

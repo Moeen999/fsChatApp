@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import { useEffect } from "react";
-import { fetchUserThunk } from "./store/slice/userslice/user.thunk";
+import fetchUserThunk from "./store/slice/userslice/user.thunk";
 function App() {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.userReducer.isAuthenticated);
