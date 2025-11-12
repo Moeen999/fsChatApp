@@ -1,6 +1,7 @@
 import { User } from "../models/user.model.js";
 import { asyncHandler } from "../utilities/asyncHandler.utility.js";
 import { errorHandler } from "../utilities/errorHandler.utility.js";
+import { sendToken } from "../utilities/sendToken.utility.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -28,15 +29,7 @@ export const registerUser = asyncHandler(async (req, res, next) => {
     avatar,
   });
 
-  const token = jwt.sign({ id: user?._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRY,
-  });
-
-  return res.status(200).json({
-    success: true,
-    userData: { newUser, token },
-    message: "User Registered Successfully",
-  });
+  return sendToken(res, newUser, "User Registered Successfully", 201);
 });
 
 export const loginUser = asyncHandler(async (req, res, next) => {
@@ -60,13 +53,5 @@ export const loginUser = asyncHandler(async (req, res, next) => {
     );
   }
 
-  const token = jwt.sign({ id: user?._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRY,
-  });
-
-  return res.status(200).json({
-    success: true,
-    userData: { user, token },
-    message: "User Logged In Successfully",
-  });
+  return sendToken(res, user, "User Logged In Successfully");
 });
