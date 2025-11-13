@@ -6,9 +6,8 @@ import { connectDB } from "./db/db.js";
 import { errorMiddleware } from "./middlewares/error.middleware.js";
 import cookieParser from "cookie-parser";
 const app = express();
-
+const PORT = process.env.PORT || 5000;
 connectDB();
-const PORT = process.env.PORT;
 app.use(express.json());
 app.use(cookieParser());
 
@@ -16,7 +15,7 @@ app.use(cookieParser());
 app.use("/api/v1/user", userRouter);
 
 //! middlewares
-app.use(errorMiddleware)
+app.use(errorMiddleware);
 
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);

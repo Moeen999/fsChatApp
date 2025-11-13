@@ -3,7 +3,6 @@ import { asyncHandler } from "../utilities/asyncHandler.utility.js";
 import { errorHandler } from "../utilities/errorHandler.utility.js";
 import { sendToken } from "../utilities/sendToken.utility.js";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 
 export const registerUser = asyncHandler(async (req, res, next) => {
   const { fullName, username, password, gender } = req.body;
@@ -54,4 +53,15 @@ export const loginUser = asyncHandler(async (req, res, next) => {
   }
 
   return sendToken(res, user, "User Logged In Successfully");
+});
+export const getUserProfile = asyncHandler(async (req, res, next) => {
+  const userId = req.user._id;
+  const profile = await User.findById(userId);
+  if (!profile) {
+    return next(new errorHandler("User not found", 404));
+  }
+  res.status(200).json({
+    success: true,
+    responseData:profile,
+  });
 });
