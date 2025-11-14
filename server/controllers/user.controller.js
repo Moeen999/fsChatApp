@@ -54,14 +54,36 @@ export const loginUser = asyncHandler(async (req, res, next) => {
 
   return sendToken(res, user, "User Logged In Successfully");
 });
+
 export const getUserProfile = asyncHandler(async (req, res, next) => {
-  const userId = req.user._id;
+  const userId = req.user.id;
   const profile = await User.findById(userId);
   if (!profile) {
     return next(new errorHandler("User not found", 404));
   }
   res.status(200).json({
     success: true,
-    responseData:profile,
+    responseData: profile,
+  });
+});
+
+export const logoutUser = asyncHandler(async (req, res, next) => {
+  res
+    .status(200)
+    .cookie("token", "", {
+      expires: new Date(Date.now()),
+      httpOnly: true,
+    })
+    .json({
+      success: true,
+      message: "Logged Out Succesfully!",
+    });
+});
+
+export const otherUsers = asyncHandler(async (req, res, next) => {
+  const otherUsers = await User.find({ _id: {$ne: req.user.id }});
+  res.status(200).json({
+    success: true,
+    responseData: otherUsers,
   });
 });
