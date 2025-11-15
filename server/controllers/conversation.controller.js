@@ -48,7 +48,7 @@ export const getMessages = asyncHandler(async (req, res, next) => {
     return next(new errorHandler("All fileds are required!", 400));
   }
 
-  let conversation = await Conversation.findOne({
+  let conversation = await Conversation.find({
     participantIds: {
       $all: [myId, otherParticipantId],
     },
