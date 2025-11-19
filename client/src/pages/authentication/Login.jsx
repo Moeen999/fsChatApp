@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaUser } from "react-icons/fa6";
 import { IoKeySharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import {toast} from "react-hot-toast";
 const Login = () => {
   const [inputData, setInputData] = useState({
     username: "",
@@ -21,6 +22,7 @@ const Login = () => {
       username: "",
       password: "",
     });
+    toast.success("Login Successful");
   };
   return (
     <form
