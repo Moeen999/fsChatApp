@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import fetchUserThunk from "./user.thunk";
+import loginUserthunk from "./user.thunk";
 
 export const userSlice = createSlice({
   name: "user",
@@ -12,13 +12,13 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchUserThunk.pending, (state, action) => {
+    builder.addCase(loginUserthunk.pending, (state, action) => {
       console.log("pending");
     });
-    builder.addCase(fetchUserThunk.fulfilled, (state, action) => {
+    builder.addCase(loginUserthunk.fulfilled, (state, action) => {
       console.log("fulfilled");
     });
-    builder.addCase(fetchUserThunk.rejected, (state, action) => {
+    builder.addCase(loginUserthunk.rejected, (state, action) => {
       console.log("rejected");
     });
   },

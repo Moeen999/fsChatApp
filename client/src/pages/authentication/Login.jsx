@@ -2,8 +2,11 @@ import { useState } from "react";
 import { FaUser } from "react-icons/fa6";
 import { IoKeySharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import {toast} from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import loginUserthunk from "../../store/slice/userslice/user.thunk";
+import toast from "react-hot-toast";
 const Login = () => {
+  const dispatch = useDispatch();
   const [inputData, setInputData] = useState({
     username: "",
     password: "",
@@ -16,12 +19,9 @@ const Login = () => {
       [name]: value,
     });
   };
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setInputData({
-      username: "",
-      password: "",
-    });
+    await dispatch(loginUserthunk(inputData));
     toast.success("Login Successful");
   };
   return (
@@ -53,7 +53,9 @@ const Login = () => {
             onChange={handleInputChange}
           />
         </label>
-        <button className="btn btn-primary" type="submit">Login</button>
+        <button className="btn btn-primary" type="submit">
+          Login
+        </button>
         <p>
           Don't have an account?
           <Link to="/register" className="text-blue-500 underline">
