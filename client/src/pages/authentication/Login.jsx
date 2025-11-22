@@ -4,7 +4,6 @@ import { IoKeySharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import loginUserthunk from "../../store/slice/userslice/user.thunk";
-import toast from "react-hot-toast";
 const Login = () => {
   const dispatch = useDispatch();
   const [inputData, setInputData] = useState({
@@ -19,16 +18,15 @@ const Login = () => {
       [name]: value,
     });
   };
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
+  const handleLogin = async () => {
     await dispatch(loginUserthunk(inputData));
-    toast.success("Login Successful");
+    setInputData({
+      username: "",
+      password: "",
+    });
   };
   return (
-    <form
-      className="flex justify-center p-6 items-center min-h-screen"
-      onSubmit={handleFormSubmit}
-    >
+    <div className="flex justify-center p-6 items-center min-h-screen">
       <div className="max-w-[40rem] w-full flex flex-col gap-5 bg-zinc-900 p-6 rounded-lg">
         <h2 className="text-2xl font-semibold">Login Here...</h2>
         <label class="input input-bordered flex items-center gap-2">
@@ -53,7 +51,7 @@ const Login = () => {
             onChange={handleInputChange}
           />
         </label>
-        <button className="btn btn-primary" type="submit">
+        <button className="btn btn-primary" type="submit" onClick={handleLogin}>
           Login
         </button>
         <p>
@@ -63,7 +61,7 @@ const Login = () => {
           </Link>
         </p>
       </div>
-    </form>
+    </div>
   );
 };
 

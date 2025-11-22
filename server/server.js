@@ -15,8 +15,7 @@ app.use(
     credentials: true,
   })
 );
-const PORT = process.env.PORT || 5000;
-connectDB();
+const PORT = process.env.PORT;
 app.use(express.json());
 app.use(cookieParser());
 
@@ -28,5 +27,6 @@ app.use("/api/v1/messages", messageRouter);
 app.use(errorMiddleware);
 
 app.listen(PORT, () => {
+  connectDB();
   console.log(`Server is running at http://localhost:${PORT}`);
 });
