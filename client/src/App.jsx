@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import { useEffect } from "react";
-import fetchUserThunk from "./store/slice/userslice/user.thunk";
+import { registerUserThunk,loginUserthunk, logoutUserThunk } from "./store/slice/userslice/user.thunk";
 import { Toaster } from "react-hot-toast";
 function App() {
   const dispatch = useDispatch();
@@ -9,13 +9,15 @@ function App() {
   console.log(state);
 
   useEffect(() => {
-    dispatch(fetchUserThunk());
+    dispatch(registerUserThunk());
+    dispatch(loginUserthunk());
+    dispatch(logoutUserThunk());
   }, [dispatch]);
-  return(
+  return (
     <>
-     <Toaster />
+      <Toaster />
     </>
-  )
+  );
 }
 
 export default App;

@@ -1,7 +1,20 @@
 import { IoSearch } from "react-icons/io5";
 import User from "./User";
+import { logoutUserThunk } from "../../store/slice/userslice/user.thunk";
+import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    const res = await dispatch(logoutUserThunk());
+    if (res.payload?.success) {
+      toast.success("Logout Successful");
+      navigate("/login");
+    }
+  };
   return (
     <div className="max-w-[20rem] w-full h-screen flex flex-col border-r border-r-white/10">
       <h1 className="bg-black mx-3 mt-3 rounded-lg px-2 py-1 text-[#7080ff] text-xl font-semibold">
@@ -24,9 +37,13 @@ const Sidebar = () => {
             <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
           </div>
         </div>
-        <button class="btn btn-active btn-error btn-sm px-4">Logout</button>
+        <button
+          class="btn btn-active btn-error btn-sm px-4"
+          onClick={handleLogout}
+        >
+          Logout
+        </button>
       </div>
-      
     </div>
   );
 };

@@ -12,7 +12,7 @@ export const sendToken = (res, user, message, statusCode = 200) => {
         Date.now() + process.env.COOKIE_EXPIRY * 24 * 60 * 60 * 1000
       ),
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure:true,
       sameSite: "None",
     })
     .json({

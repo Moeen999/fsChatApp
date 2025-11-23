@@ -2,8 +2,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 import { axiosInstance } from "../../../components/utilities/axiosInstance";
 
-const registerUserThunk = createAsyncThunk(
-  "users/fetchById",
+export const registerUserThunk = createAsyncThunk(
+  "user/signup",
   async ({ fullName, username, password, gender }, { rejectWithValue }) => {
     try {
       const res = await axiosInstance.post("/user/register", {
@@ -12,10 +12,8 @@ const registerUserThunk = createAsyncThunk(
         password,
         gender,
       });
-      if (res.status === 200) {
-        toast.success("User Registered Successfully");
-        return res.data;
-      }
+      toast.success("User Registered Successfully");
+      return res.data;
     } catch (error) {
       const err = error?.response?.data?.errMessage;
       toast.error(err);
@@ -24,18 +22,16 @@ const registerUserThunk = createAsyncThunk(
   }
 );
 
-const loginUserthunk = createAsyncThunk(
-  "users/fetchById",
+export const loginUserthunk = createAsyncThunk(
+  "user/login",
   async ({ username, password }, { rejectWithValue }) => {
     try {
       const res = await axiosInstance.post("/user/login", {
         username,
         password,
       });
-      if (res.status === 200) {
-        toast.success("Login Successful");
-        return res.data;
-      }
+      toast.success("Login Successful");
+      return res.data;
     } catch (error) {
       const err = error?.response?.data?.errMessage;
       toast.error(err);
@@ -43,4 +39,17 @@ const loginUserthunk = createAsyncThunk(
     }
   }
 );
-export default registerUserThunk;
+
+export const logoutUserThunk = createAsyncThunk(
+  "user/logout",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await axiosInstance.post("/user/logout");
+      return res.data;
+    } catch (error) {
+      const err = error?.response?.data?.errMessage;
+      toast.error(err);
+      return rejectWithValue(err);
+    }
+  }
+);

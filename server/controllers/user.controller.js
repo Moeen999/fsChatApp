@@ -81,7 +81,7 @@ export const logoutUser = asyncHandler(async (req, res, next) => {
 });
 
 export const otherUsers = asyncHandler(async (req, res, next) => {
-  const otherUsers = await User.find({ _id: {$ne: req.user.id }});
+  const otherUsers = await User.find({ _id: { $ne: req.user.id } });
   res.status(200).json({
     success: true,
     responseData: otherUsers,

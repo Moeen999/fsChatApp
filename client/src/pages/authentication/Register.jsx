@@ -2,9 +2,11 @@ import { useState } from "react";
 import { FaUser } from "react-icons/fa6";
 import { IoKeySharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import registerUserThunk from "../../store/slice/userslice/user.thunk";
-import {useDispatch} from "react-redux";
+import { registerUserThunk } from "../../store/slice/userslice/user.thunk";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const Register = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [inputData, setInputData] = useState({
     fullName: "",
@@ -21,14 +23,15 @@ const Register = () => {
     }));
   };
 
-  const handleUserRegister = async() => {
-     await dispatch(registerUserThunk(inputData));
+  const handleUserRegister = async () => {
+    await dispatch(registerUserThunk(inputData));
     setInputData({
       fullName: "",
       username: "",
       password: "",
       gender: "",
     });
+    navigate("/login")
   };
   return (
     <div className="flex justify-center p-6 items-center min-h-screen">
@@ -67,21 +70,32 @@ const Register = () => {
             onChange={handleInputChange}
           />
         </label>
-        <label class="input input-bordered flex items-center gap-2">
-          <select
-            class="grow bg-transparent outline-none"
-            name="gender"
-            value={inputData.gender}
-            onChange={handleInputChange}
-          >
-            <option value="" disabled>
-              Select Gender
-            </option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-          </select>
-        </label>
+        <div className="flex items-center gap-6">
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="radio"
+              name="gender"
+              value="male"
+              className="radio radio-primary"
+              checked={inputData.gender === "male"}
+              onChange={handleInputChange}
+            />
+            <span class="label-text">Male</span>
+          </label>
+
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="radio"
+              name="gender"
+              value="female"
+              className="radio radio-primary"
+              checked={inputData.gender === "female"}
+              onChange={handleInputChange}
+            />
+            <span className="label-text">Female</span>
+          </label>
+        </div>
+
         <button
           className="btn btn-primary"
           type="submit"

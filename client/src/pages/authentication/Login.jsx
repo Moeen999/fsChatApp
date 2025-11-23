@@ -3,8 +3,10 @@ import { FaUser } from "react-icons/fa6";
 import { IoKeySharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import loginUserthunk from "../../store/slice/userslice/user.thunk";
+import {loginUserthunk} from "../../store/slice/userslice/user.thunk";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [inputData, setInputData] = useState({
     username: "",
@@ -24,6 +26,7 @@ const Login = () => {
       username: "",
       password: "",
     });
+    navigate("/")
   };
   return (
     <div className="flex justify-center p-6 items-center min-h-screen">
