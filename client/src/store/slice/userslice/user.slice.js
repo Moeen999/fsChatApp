@@ -1,10 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUserthunk, logoutUserThunk, registerUserThunk } from "./user.thunk";
+import {
+  loginUserthunk,
+  logoutUserThunk,
+  registerUserThunk,
+} from "./user.thunk";
 
 export const userSlice = createSlice({
   name: "user",
   initialState: {
     isAuthenticated: false,
+    screenLoading: false,
+    userProfile: null,
+    buttonLoading: false,
   },
   reducers: {
     register: () => {
@@ -15,36 +22,38 @@ export const userSlice = createSlice({
     },
     logout: () => {
       console.log("hi logout");
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(registerUserThunk.pending, (state, action) => {
-      console.log("pending");
+      state.screenLoading = true;
+      state.buttonLoading = true;
     });
     builder.addCase(registerUserThunk.fulfilled, (state, action) => {
-      console.log("fulfilled");
+      state.screenLoading = false;
+      state.buttonLoading = false;
     });
     builder.addCase(registerUserThunk.rejected, (state, action) => {
-      console.log("rejected");
+      state.screenLoading = false;
+      state.buttonLoading = false;
     });
     builder.addCase(loginUserthunk.pending, (state, action) => {
-      console.log("pending");
+      state.screenLoading = true;
+      state.buttonLoading = true;
     });
     builder.addCase(loginUserthunk.fulfilled, (state, action) => {
-      console.log("fulfilled");
+      state.isAuthenticated = true;
+      state.userProfile = action.payload?.userData?.user;
+      state.screenLoading = false;
+      state.buttonLoading = false;
     });
     builder.addCase(loginUserthunk.rejected, (state, action) => {
-      console.log("rejected");
+      state.screenLoading = false;
+      state.buttonLoading = false;
     });
-    builder.addCase(logoutUserThunk.pending, (state, action) => {
-      console.log("pending");
-    });
-    builder.addCase(logoutUserThunk.fulfilled, (state, action) => {
-      console.log("fulfilled");
-    });
-    builder.addCase(logoutUserThunk.rejected, (state, action) => {
-      console.log("rejected");
-    });
+    builder.addCase(logoutUserThunk.pending, (state, action) => {});
+    builder.addCase(logoutUserThunk.fulfilled, (state, action) => {});
+    builder.addCase(logoutUserThunk.rejected, (state, action) => {});
   },
 });
 
