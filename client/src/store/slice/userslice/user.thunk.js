@@ -45,10 +45,37 @@ export const logoutUserThunk = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await axiosInstance.post("/user/logout");
+      toast.success("Logout Successful");
       return res.data;
     } catch (error) {
       const err = error?.response?.data?.errMessage;
       toast.error(err);
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const getUserProfileThunk = createAsyncThunk(
+  "user/getProfile",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await axiosInstance.get("/user/get-profile");
+      return res.data;
+    } catch (error) {
+      const err = error?.response?.data?.errMessage;
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const getOtherUsersThunk = createAsyncThunk(
+  "user/getOtherUsers",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await axiosInstance.get("/user/get-other-users");
+      return res.data;
+    } catch (error) {
+      const err = error?.response?.data?.errMessage;
       return rejectWithValue(err);
     }
   }

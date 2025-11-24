@@ -8,11 +8,16 @@ import Register from "./pages/authentication/Register.jsx";
 import Login from "./pages/authentication/Login.jsx";
 import { store } from "./store/store.js";
 import { Provider } from "react-redux";
+import ProtectedRoutes from "./components/ProtectedRoutes.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: (
+      <ProtectedRoutes>
+        <Home />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/register",

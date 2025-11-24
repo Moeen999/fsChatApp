@@ -1,17 +1,18 @@
 import { IoSearch } from "react-icons/io5";
 import User from "./User";
 import { logoutUserThunk } from "../../store/slice/userslice/user.thunk";
-import { useDispatch } from "react-redux";
-import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { userProfile, otherUsersProfile } = useSelector(
+    (state) => state.userReducer
+  );
   const handleLogout = async () => {
     const res = await dispatch(logoutUserThunk());
     if (res.payload?.success) {
-      toast.success("Logout Successful");
       navigate("/login");
     }
   };
@@ -21,24 +22,26 @@ const Sidebar = () => {
         DevTalks
       </h1>
       <div className="p-3">
-        <label class="input input-bordered flex items-center gap-2">
-          <input type="text" class="grow" placeholder="Search" />
+        <label className="input input-bordered flex items-center gap-2">
+          <input type="text" className="grow" placeholder="Search" />
           <IoSearch />
         </label>
       </div>
 
-      <div className="h-screen overflow-y-scroll px-3">
-        <User />
+      <div className="flex flex-col gap-3 h-screen overflow-y-scroll px-3">
+        {otherUsersProfile?.map((otherUsers) => (
+          <User key={otherUsers?._id} otherUsers={otherUsers} />
+        ))}
       </div>
 
       <div className="bg-zinc-800 flex justify-between items-center p-3">
-        <div class="avatar">
-          <div class="ring-primary ring-offset-base-100 w-10 rounded-full ring ring-offset-2">
-            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+        <div className="avatar">
+          <div className="ring-primary ring-offset-base-100 w-10 rounded-full ring ring-offset-2">
+            {userProfile && <img src={userProfile?.avatar} alt="You" />}
           </div>
         </div>
         <button
-          class="btn btn-active btn-error btn-sm px-4"
+          className="btn btn-active btn-error btn-sm px-4"
           onClick={handleLogout}
         >
           Logout

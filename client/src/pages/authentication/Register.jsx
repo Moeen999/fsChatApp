@@ -1,13 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaUser } from "react-icons/fa6";
 import { IoKeySharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { registerUserThunk } from "../../store/slice/userslice/user.thunk";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const { isAuthenticated } = useSelector((state) => state.userReducer);
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated]);
+
   const [inputData, setInputData] = useState({
     fullName: "",
     username: "",
@@ -24,46 +32,42 @@ const Register = () => {
   };
 
   const handleUserRegister = async () => {
-    await dispatch(registerUserThunk(inputData));
-    setInputData({
-      fullName: "",
-      username: "",
-      password: "",
-      gender: "",
-    });
-    navigate("/login")
+    const res = await dispatch(registerUserThunk(inputData));
+    if (res.payload?.success) {
+      navigate("/");
+    }
   };
   return (
     <div className="flex justify-center p-6 items-center min-h-screen">
       <div className="max-w-[40rem] w-full flex flex-col gap-5 bg-zinc-900 p-6 rounded-lg">
         <h2 className="text-2xl font-semibold">Register Here...</h2>
-        <label class="input input-bordered flex items-center gap-2">
+        <label className="input input-bordered flex items-center gap-2">
           <FaUser />
           <input
             type="text"
-            class="grow"
+            className="grow"
             placeholder="FullName"
             name="fullName"
             value={inputData.fullName}
             onChange={handleInputChange}
           />
         </label>
-        <label class="input input-bordered flex items-center gap-2">
+        <label className="input input-bordered flex items-center gap-2">
           <FaUser />
           <input
             type="text"
-            class="grow"
+            className="grow"
             placeholder="Username"
             name="username"
             value={inputData.username}
             onChange={handleInputChange}
           />
         </label>
-        <label class="input input-bordered flex items-center gap-2">
+        <label className="input input-bordered flex items-center gap-2">
           <IoKeySharp />
           <input
             type="password"
-            class="grow"
+            className="grow"
             placeholder="Password"
             name="password"
             value={inputData.password}
@@ -80,7 +84,7 @@ const Register = () => {
               checked={inputData.gender === "male"}
               onChange={handleInputChange}
             />
-            <span class="label-text">Male</span>
+            <span className="label-text">Male</span>
           </label>
 
           <label className="flex items-center gap-2 cursor-pointer">
