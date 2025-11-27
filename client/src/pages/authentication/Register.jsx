@@ -38,7 +38,8 @@ const Register = () => {
     }
   };
   return (
-    <div className="flex justify-center p-6 items-center min-h-screen">
+    <div className="flex flex-col justify-center gap-4 p-6 items-center min-h-screen">
+      <h1 className="text-3xl font-semibold">Hi, welcome to the Dev_Talks😊</h1>
       <div className="max-w-[40rem] w-full flex flex-col gap-5 bg-zinc-900 p-6 rounded-lg">
         <h2 className="text-2xl font-semibold">Register Here...</h2>
         <label className="input input-bordered flex items-center gap-2">

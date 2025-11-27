@@ -29,24 +29,22 @@ const Sidebar = () => {
       </div>
 
       <div className="flex flex-col gap-3 h-screen overflow-y-scroll px-3">
-        {Array.isArray(otherUsersProfile) && otherUsersProfile.length > 0 ? (
-          otherUsersProfile
-            .filter((u) => u?._id !== userProfile?._id)
-            .map((otherUsers) => (
-              <User key={otherUsers?._id} otherUsers={otherUsers} />
-            ))
-        ) : (
-          <p className="text-sm text-zinc-400">No users found</p>
-        )}
+        {otherUsersProfile
+          ?.filter((u) => u?._id !== userProfile?._id)
+          .map((otherUsers) => (
+            <User key={otherUsers?._id} otherUsers={otherUsers} />
+          ))}
       </div>
 
       <div className="bg-zinc-800 flex justify-between items-center p-3">
         <div className="flex gap-4 avatar">
-          <div className="ring-primary ring-offset-base-100 w-10 rounded-full ring ring-offset-2">
-            {userProfile && <img src={userProfile?.avatar} alt="You" />}
+          <div className="ring-primary ring-offset-base-100 w-[50px] h-[50px] rounded-full ring ring-offset-2">
+            <img src={userProfile?.avatar} alt="You" />
           </div>
           <div className="flex flex-col cursor-pointer">
             <h2>{userProfile?.fullName}</h2>
+            {console.log("userProfile username:", userProfile?.fullName)}
+            {console.log("userProfile username:", userProfile?.username)}
             <p>{userProfile?.username}</p>
           </div>
         </div>
