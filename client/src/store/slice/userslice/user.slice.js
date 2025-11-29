@@ -7,27 +7,20 @@ import {
   registerUserThunk,
 } from "./user.thunk";
 
+const initialState = {
+  isAuthenticated: false,
+  userProfile: null,
+  otherUsersProfile: null,
+  buttonLoading: false,
+  screenLoading: true,
+  selectedUser: null,
+};
 export const userSlice = createSlice({
   name: "user",
-  initialState: {
-    isAuthenticated: false,
-    userProfile: null,
-    otherUsersProfile:null,
-    buttonLoading: false,
-    screenLoading: true,
-  },
+  initialState,
   reducers: {
-    register: () => {
-      console.log("hi register");
-    },
-    login: () => {
-      console.log("hi login");
-    },
-    logout: () => {
-      console.log("hi logout");
-    },
-    getProfile: () => {
-      console.log("hi getProfile");
+    setSelecteduser: (state, action) => {
+      state.selectedUser = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -73,10 +66,11 @@ export const userSlice = createSlice({
     });
 
     builder.addCase(getUserProfileThunk.pending, (state, action) => {
+      state.screenLoading = true;
     });
     builder.addCase(getUserProfileThunk.fulfilled, (state, action) => {
       state.isAuthenticated = true;
-      state.userProfile = action.payload?.userData?.user;
+      state.userProfile = action.payload?.responseData;
       state.screenLoading = false;
     });
     builder.addCase(getUserProfileThunk.rejected, (state, action) => {
@@ -87,13 +81,15 @@ export const userSlice = createSlice({
       state.screenLoading = true;
     });
     builder.addCase(getOtherUsersThunk.fulfilled, (state, action) => {
+      state.otherUsersProfile = action.payload?.responseData;
       state.screenLoading = false;
-      state.otherUsersProfile=action.payload?.responseData; 
     });
-    builder.addCase(getOtherUsersThunk.rejected, (state, action) => {});
+    builder.addCase(getOtherUsersThunk.rejected, (state, action) => {
+      state.screenLoading = false;
+    });
   },
 });
 
-export const { register, login, logout, getProfile } = userSlice.actions;
+export const { setSelecteduser } = userSlice.actions;
 
 export default userSlice.reducer;

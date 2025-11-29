@@ -33,6 +33,7 @@ const Register = () => {
 
   const handleUserRegister = async () => {
     const res = await dispatch(registerUserThunk(inputData));
+    localStorage.setItem("accesstoken", res.payload.token);
     if (res.payload?.success) {
       navigate("/");
     }

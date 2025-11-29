@@ -10,10 +10,8 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async () => {
-      dispatch(getUserProfileThunk());
-      dispatch(getOtherUsersThunk());
-    })();
+    dispatch(getUserProfileThunk());
+    dispatch(getOtherUsersThunk());
   }, [dispatch]);
   return (
     <>

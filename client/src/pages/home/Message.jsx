@@ -1,21 +1,36 @@
-const Message = () => {
+import { useSelector } from "react-redux";
+
+const Message = ({ messageDetails }) => {
+  const { userProfile } = useSelector((state) => state.userReducer);
   return (
     <>
-      <div className="chat chat-start">
+      <div
+        className={`chat ${
+          messageDetails?.senderId === userProfile?._id
+            ? "chat-end"
+            : "chat-start"
+        }`}
+      >
         <div className="chat-image avatar">
           <div className="w-10 rounded-full">
             <img
               alt="Tailwind CSS chat bubble component"
-              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+              src={userProfile?.avatar}
             />
           </div>
         </div>
         <div className="chat-header">
-          Obi-Wan Kenobi
-          <time className="text-xs opacity-50">12:45</time>
+          <time className="text-xs opacity-50">
+            {messageDetails?.updatedAt
+              ? new Date(messageDetails.updatedAt).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  hour12: true,
+                })
+              : ""}
+          </time>
         </div>
-        <div className="chat-bubble">You were the Chosen One!</div>
-        <div className="chat-footer opacity-50">Delivered</div>
+        <div className="chat-bubble">{messageDetails?.message}</div>
       </div>
     </>
   );

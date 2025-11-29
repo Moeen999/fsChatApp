@@ -18,7 +18,7 @@ const Sidebar = () => {
   };
   return (
     <div className="max-w-[20rem] w-full h-screen flex flex-col border-r border-r-white/10">
-      <h1 className="bg-black mx-3 mt-3 rounded-lg px-2 py-1 text-[#7080ff] text-xl font-semibold">
+      <h1 className="flex justify-center tracking-widest bg-black mx-3 mt-3 rounded-lg px-2 py-1 text-[#7080ff] text-xl font-semibold">
         DevTalks
       </h1>
       <div className="p-3">
@@ -43,8 +43,6 @@ const Sidebar = () => {
           </div>
           <div className="flex flex-col cursor-pointer">
             <h2>{userProfile?.fullName}</h2>
-            {console.log("userProfile username:", userProfile?.fullName)}
-            {console.log("userProfile username:", userProfile?.username)}
             <p>{userProfile?.username}</p>
           </div>
         </div>

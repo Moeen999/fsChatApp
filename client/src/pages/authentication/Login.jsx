@@ -29,6 +29,7 @@ const Login = () => {
   };
   const handleLogin = async () => {
     const res = await dispatch(loginUserthunk(inputData));
+    localStorage.setItem("accesstoken", res.payload.token);
     if (res.payload?.success) {
       navigate("/");
     }

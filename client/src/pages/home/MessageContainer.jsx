@@ -1,29 +1,49 @@
 import User from "./User";
 import Message from "./Message";
-import { IoIosSend } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getMessagesThunk } from "../../store/slice/messageslice/message.thunk";
+import SendMessage from "./SendMessage";
 
 const MessageContainer = () => {
+  const { selectedUser } = useSelector((state) => state.userReducer);
+  const { messages } = useSelector((state) => state.messageReducer);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (selectedUser?._id) {
+      dispatch(getMessagesThunk({ receiverId: selectedUser?._id }));
+    }
+  }, [selectedUser]);
   return (
-    <div className="w-full h-screen flex flex-col">
-      <div className="border-b border-b-white/10 p-3">
-        <User />
-      </div>
+    <>
+      {!selectedUser?._id ? (
+        <>
+          <div className="w-full h-screen flex justify-center items-center">
+            <h2 className="text-2xl text-gray-500">
+              Select a user to start conversation
+            </h2>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="w-full h-screen flex flex-col">
+            <div className="border-b border-b-white/10 p-3">
+              <User otherUsers={selectedUser} />
+            </div>
 
-      <div className="h-full overflow-y-auto p-3">
-        <Message />
-      </div>
-
-      <div className="flex justify-center gap-3 w-full p-3 border-t border-t-white/10">
-        <input
-          type="text"
-          placeholder="Type here........"
-          className="input input-bordered input-info w-full"
-        />
-        <button className="btn btn-square btn-outline btn-primary">
-          <IoIosSend fontSize={24}/>
-        </button>
-      </div>
-    </div>
+            <div className="h-full overflow-y-auto p-3">
+              {messages?.map((messageDetails) => (
+                <Message
+                  key={messageDetails?._id}
+                  messageDetails={messageDetails}
+                />
+              ))}
+            </div>
+            <SendMessage/>
+          </div>
+        </>
+      )}
+    </>
   );
 };
 

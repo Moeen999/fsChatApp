@@ -4,7 +4,6 @@ export const sendToken = (res, user, message, statusCode = 200) => {
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRY,
   });
-
   return res
     .status(statusCode)
     .cookie("token", token, {
@@ -18,6 +17,7 @@ export const sendToken = (res, user, message, statusCode = 200) => {
     .json({
       success: true,
       userData: { user, token },
+      token,
       message,
     });
 };
