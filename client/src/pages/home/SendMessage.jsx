@@ -15,7 +15,7 @@ const SendMessage = () => {
       <div className="flex justify-center gap-3 w-full p-3 border-t border-t-white/10">
         <input
           type="text"
-          placeholder="Type here........"
+          placeholder="Enter you message here........"
           className="input input-bordered input-info w-full"
           onChange={(e) => setMessage(e.target.value)}
         />

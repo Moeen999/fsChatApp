@@ -13,13 +13,17 @@ const initialState = {
   otherUsersProfile: null,
   buttonLoading: false,
   screenLoading: true,
-  selectedUser: null,
+  selectedUser: JSON.parse(localStorage.getItem("persistSelectedUser")),
 };
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
     setSelecteduser: (state, action) => {
+      localStorage.setItem(
+        "persistSelectedUser",
+        JSON.stringify(action.payload)
+      );
       state.selectedUser = action.payload;
     },
   },
@@ -59,7 +63,10 @@ export const userSlice = createSlice({
     builder.addCase(logoutUserThunk.fulfilled, (state, action) => {
       state.isAuthenticated = false;
       state.userProfile = null;
+      state.selectedUser = null;
+      state.otherUsersProfile = null;
       state.screenLoading = false;
+      state.buttonLoading = false;
     });
     builder.addCase(logoutUserThunk.rejected, (state, action) => {
       state.screenLoading = false;
