@@ -27,12 +27,11 @@ const Sidebar = () => {
   };
 
   const handleSearchChange = (e) => {
-    const value = e.target.value.toLowerCase();
 
     const result = otherUsersProfile.filter(
       (user) =>
-        user?.fullName.toLowerCase().includes(value) ||
-        user?.username.toLowerCase().includes(value)
+        user?.fullName.toLowerCase().includes(e.target.value) ||
+        user?.username.toLowerCase().includes(e.target.value)
     );
 
     setFilteredUsers(result);
