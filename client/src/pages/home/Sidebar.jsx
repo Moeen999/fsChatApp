@@ -6,14 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const Sidebar = () => {
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { userProfile, otherUsersProfile } = useSelector(
     (state) => state.userReducer
   );
-
-  const [filteredUsers, setFilteredUsers] = useState([]);
 
   useEffect(() => {
     setFilteredUsers(otherUsersProfile);
@@ -39,8 +38,8 @@ const Sidebar = () => {
 
   return (
     <div className="max-w-[20rem] w-full h-screen flex flex-col border-r border-r-white/10">
-      <h1 className="flex justify-center tracking-widest bg-black mx-3 mt-3 rounded-lg px-2 py-1 text-[#7080ff] text-xl font-semibold">
-        DevTalks
+      <h1 className="font-extrabold flex justify-center tracking-widest bg-black mx-3 mt-3 rounded-lg px-2 py-1 text-[#7080ff] text-xl">
+        Nigg_Talks
       </h1>
 
       <div className="p-3">
