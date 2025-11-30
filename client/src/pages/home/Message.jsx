@@ -1,23 +1,28 @@
+import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 
 const Message = ({ messageDetails }) => {
-  const { userProfile, selectedUser } = useSelector((state) => state.userReducer);
+  const { userProfile, selectedUser } = useSelector(
+    (state) => state.userReducer
+  );
 
   const isSenderMe = messageDetails?.senderId === userProfile?._id;
-
-  const profilePic = isSenderMe
-    ? userProfile?.avatar
-    : selectedUser?.avatar;
-
+  const messageRef = useRef(null);
+  const profilePic = isSenderMe ? userProfile?.avatar : selectedUser?.avatar;
+  useEffect(() => {
+    if (messageRef.current) {
+      messageRef.current.scrollIntoView({ behaviour: "smooth" });
+    }
+  });
   return (
     <>
-      <div className={`chat ${isSenderMe ? "chat-end" : "chat-start"}`}>
+      <div
+        ref={messageRef}
+        className={`chat ${isSenderMe ? "chat-end" : "chat-start"}`}
+      >
         <div className="chat-image avatar">
           <div className="w-10 rounded-full">
-            <img
-              alt="avatar"
-              src={profilePic}
-            />
+            <img alt="avatar" src={profilePic} />
           </div>
         </div>
 

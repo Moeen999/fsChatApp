@@ -11,6 +11,7 @@ import { Provider } from "react-redux";
 import ProtectedRoutes from "./components/ProtectedRoutes.jsx";
 import AccountDelete from "./pages/home/AccountDelete .jsx";
 
+
 const router = createBrowserRouter([
   {
     path: "/",

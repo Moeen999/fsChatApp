@@ -9,14 +9,20 @@ const initialState = {
 export const messageSlice = createSlice({
   name: "message",
   initialState,
-  reducers: {},
+  reducers: {
+    setNewMessages: (state, action) => {
+      const prevMessages = state.messages ?? [];
+      state.messages = [...prevMessages, action.payload];
+    },
+  },
   extraReducers: (builder) => {
     // ! Send Messages
     builder.addCase(sendMessageThunk.pending, (state, action) => {
       state.buttonLoading = true;
     });
     builder.addCase(sendMessageThunk.fulfilled, (state, action) => {
-      state.messages = [...state.messages, action.payload?.responseData];
+      const prevMessages = state.messages ?? [];
+      state.messages = [...prevMessages, action.payload?.responseData];
       state.buttonLoading = false;
     });
     builder.addCase(sendMessageThunk.rejected, (state, action) => {
@@ -37,6 +43,6 @@ export const messageSlice = createSlice({
   },
 });
 
-export const {} = messageSlice.actions;
+export const { setNewMessages } = messageSlice.actions;
 
 export default messageSlice.reducer;

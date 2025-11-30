@@ -7,14 +7,16 @@ const SendMessage = () => {
   const dispatch = useDispatch();
   const [message, setMessage] = useState("");
   const { selectedUser } = useSelector((state) => state.userReducer);
-  const handleSendMessage = () => {
-    dispatch(sendMessageThunk({ receiverId: selectedUser?._id, message })); // !as per this line it is very crucial to send those keys which are acceptable by the BE
+  const handleSendMessage =async () => {
+    await dispatch(sendMessageThunk({ receiverId: selectedUser?._id, message }));
+    setMessage("");
   };
   return (
     <div>
       <div className="flex justify-center gap-3 w-full p-3 border-t border-t-white/10">
         <input
           type="text"
+          value={message}
           placeholder="Enter your message here........"
           className="input input-bordered input-info w-full"
           onChange={(e) => setMessage(e.target.value)}

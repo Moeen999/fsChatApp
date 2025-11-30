@@ -14,7 +14,7 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { userProfile, otherUsersProfile } = useSelector(
+  const { screenLoading, userProfile, otherUsersProfile } = useSelector(
     (state) => state.userReducer
   );
 
@@ -43,6 +43,10 @@ const Sidebar = () => {
     setFilteredUsers(result);
   };
 
+  if (screenLoading)
+    return (
+      <span className="w-screen flex justify-center items-center loading loading-bars"></span>
+    );
   return (
     <div className="max-w-[20rem] w-full h-screen flex flex-col border-r border-r-white/10">
       <h1 className="font-extrabold flex justify-center tracking-widest bg-black mx-3 mt-3 rounded-lg px-2 py-1 text-[#7080ff] text-xl">
@@ -80,7 +84,7 @@ const Sidebar = () => {
         <div className="dropdown dropdown-top dropdown-end">
           <div tabIndex={0} role="button" className="btn m-1">
             Settings
-            <FaUserGear/>
+            <FaUserGear />
           </div>
           <ul
             tabIndex="-1"

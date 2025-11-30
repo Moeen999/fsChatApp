@@ -3,6 +3,7 @@ import { Conversation } from "../models/conversation.model.js";
 import { asyncHandler } from "../utilities/asyncHandler.utility.js";
 import { errorHandler } from "../utilities/errorHandler.utility.js";
 import mongoose from "mongoose";
+import { getSocketId, io } from "../socket/socket.js";
 
 export const sendMessage = asyncHandler(async (req, res, next) => {
   const senderId = req.user.id;
@@ -32,8 +33,9 @@ export const sendMessage = asyncHandler(async (req, res, next) => {
     await conversation.save();
   }
 
-  //!   web socket / Socket.io Implementation will start from here...
-
+  //! getSocketId
+  const socketID = getSocketId(receiverId);
+  io.to(socketID).emit("newMsg",newMsg)
   res.status(200).json({
     success: true,
     responseData: newMsg,
