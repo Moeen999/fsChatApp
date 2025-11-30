@@ -3,33 +3,61 @@ import User from "./User";
 import { logoutUserThunk } from "../../store/slice/userslice/user.thunk";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const { userProfile, otherUsersProfile } = useSelector(
     (state) => state.userReducer
   );
+
+  const [filteredUsers, setFilteredUsers] = useState([]);
+
+  useEffect(() => {
+    setFilteredUsers(otherUsersProfile);
+  }, [otherUsersProfile]);
+
   const handleLogout = async () => {
     const res = await dispatch(logoutUserThunk());
     if (res.payload?.success) {
       navigate("/login");
     }
   };
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value.toLowerCase();
+
+    const result = otherUsersProfile.filter(
+      (user) =>
+        user?.fullName.toLowerCase().includes(value) ||
+        user?.username.toLowerCase().includes(value)
+    );
+
+    setFilteredUsers(result);
+  };
+
   return (
     <div className="max-w-[20rem] w-full h-screen flex flex-col border-r border-r-white/10">
       <h1 className="flex justify-center tracking-widest bg-black mx-3 mt-3 rounded-lg px-2 py-1 text-[#7080ff] text-xl font-semibold">
         DevTalks
       </h1>
+
       <div className="p-3">
         <label className="input input-bordered flex items-center gap-2">
-          <input type="text" className="grow" placeholder="Search" />
+          <input
+            type="text"
+            className="grow"
+            placeholder="Search Friends....."
+            onChange={handleSearchChange}
+          />
           <IoSearch />
         </label>
       </div>
 
       <div className="flex flex-col gap-3 h-screen overflow-y-scroll px-3">
-        {otherUsersProfile
+        {filteredUsers
           ?.filter((u) => u?._id !== userProfile?._id)
           .map((otherUsers) => (
             <User key={otherUsers?._id} otherUsers={otherUsers} />
