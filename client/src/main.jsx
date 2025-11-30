@@ -9,6 +9,7 @@ import Login from "./pages/authentication/Login.jsx";
 import { store } from "./store/store.js";
 import { Provider } from "react-redux";
 import ProtectedRoutes from "./components/ProtectedRoutes.jsx";
+import AccountDelete from "./pages/home/AccountDelete .jsx";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
+  {
+    path:"/delete-account",
+    element:<AccountDelete />
+  }
 ]);
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>

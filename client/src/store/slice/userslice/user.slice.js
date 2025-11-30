@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  deleteUserThunk,
   getOtherUsersThunk,
   getUserProfileThunk,
   loginUserthunk,
@@ -67,6 +68,7 @@ export const userSlice = createSlice({
       state.otherUsersProfile = null;
       state.screenLoading = false;
       state.buttonLoading = false;
+      localStorage.clear();
     });
     builder.addCase(logoutUserThunk.rejected, (state, action) => {
       state.screenLoading = false;
@@ -92,6 +94,21 @@ export const userSlice = createSlice({
       state.screenLoading = false;
     });
     builder.addCase(getOtherUsersThunk.rejected, (state, action) => {
+      state.screenLoading = false;
+    });
+
+    builder.addCase(deleteUserThunk.pending, (state, action) => {
+      state.screenLoading = true;
+    });
+    builder.addCase(deleteUserThunk.fulfilled, (state, action) => {
+      state.isAuthenticated = false;
+      state.userProfile = null;
+      state.otherUsersProfile = null;
+      state.selectedUser = null;
+      localStorage.clear();
+      state.screenLoading = false;
+    });
+    builder.addCase(deleteUserThunk.rejected, (state, action) => {
       state.screenLoading = false;
     });
   },

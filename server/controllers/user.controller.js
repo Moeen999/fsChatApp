@@ -87,3 +87,25 @@ export const otherUsers = asyncHandler(async (req, res, next) => {
     responseData: otherUsers,
   });
 });
+
+export const deleteUser = asyncHandler(async (req, res, next) => {
+  const userId = req.user?.id;
+
+  const user = await User.findById(userId);
+  if (!user) {
+    return next(new errorHandler("User not found!", 404));
+  }
+
+  await User.findByIdAndDelete(userId);
+
+  res
+    .status(200)
+    .cookie("token", "", {
+      expires: new Date(Date.now()),
+      httpOnly: true,
+    })
+    .json({
+      success: true,
+      message: "Account Deleted Successfully",
+    });
+});
