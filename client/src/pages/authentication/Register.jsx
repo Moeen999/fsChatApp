@@ -39,9 +39,13 @@ const Register = () => {
   };
   return (
     <div className="flex flex-col justify-center gap-4 p-6 items-center min-h-screen">
-      <h1 className="text-3xl font-semibold">Hi, welcome to the Nigg_Talks😊</h1>
+      <h1 className="text-3xl font-semibold">
+        Hi, welcome to the TalkSphere😊
+      </h1>
+
       <div className="max-w-[40rem] w-full flex flex-col gap-5 bg-zinc-900 p-6 rounded-lg">
-        <h2 className="text-2xl font-semibold">Register Here...</h2>
+        <h2 className="flex justify-center items-center text-2xl font-semibold">Register in the TalkSphere</h2>
+
         <label className="input input-bordered flex items-center gap-2">
           <FaUser />
           <input
@@ -53,6 +57,7 @@ const Register = () => {
             onChange={handleInputChange}
           />
         </label>
+
         <label className="input input-bordered flex items-center gap-2">
           <FaUser />
           <input
@@ -64,6 +69,7 @@ const Register = () => {
             onChange={handleInputChange}
           />
         </label>
+
         <label className="input input-bordered flex items-center gap-2">
           <IoKeySharp />
           <input
@@ -75,8 +81,10 @@ const Register = () => {
             onChange={handleInputChange}
           />
         </label>
+
         <div className="flex items-center gap-6">
           <h1>Select Gender:</h1>
+
           <label className="flex items-center gap-2 cursor-pointer">
             <input
               type="radio"
@@ -109,13 +117,21 @@ const Register = () => {
         >
           Register
         </button>
+
         <p>
-          Already have an account?
+          Already have an account?{" "}
           <Link to="/login" className="text-blue-500 underline">
             Login
           </Link>
         </p>
       </div>
+
+      <footer className="w-full bg-zinc-900 text-center py-3 rounded mt-6">
+        <marquee behavior="scroll" direction="left" className="text-gray-300">
+          © {new Date().getFullYear()} All rights reserved by{" "}
+          <b>Muhammad Moeen</b>
+        </marquee>
+      </footer>
     </div>
   );
 };

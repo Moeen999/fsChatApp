@@ -18,10 +18,11 @@ const MessageContainer = () => {
     <>
       {!selectedUser?._id ? (
         <>
-          <div className="w-full h-screen flex justify-center items-center">
-            <h2 className="text-2xl text-gray-500">
+          <div className="w-full h-screen flex flex-col justify-center items-center">
+            <h2 className="text-xl">Welcome! to <span className="tracking-wider font-bold">SphereTalk</span>!</h2>
+            <p className="text-2xl text-gray-500">
               Select a user to start conversation
-            </h2>
+            </p>
           </div>
         </>
       ) : (
