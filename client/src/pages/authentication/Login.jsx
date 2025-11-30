@@ -36,7 +36,9 @@ const Login = () => {
   return (
     <div className="flex flex-col justify-between min-h-screen">
       <div className="flex flex-col justify-center gap-[8rem] p-6 items-center">
-        <h1 className="text-3xl font-bold tracking-widest">Welcome Back 👋 to TalkSphere</h1>
+        <h1 className="text-lg md:text-3xl font-bold tracking-widest">
+          Welcome Back 👋 to TalkSphere
+        </h1>
 
         <div className="max-w-[40rem] w-full flex flex-col gap-5 bg-zinc-900 p-6 rounded-lg">
           <h2 className="text-2xl font-semibold flex justify-center items-center">
@@ -84,8 +86,7 @@ const Login = () => {
         </div>
       </div>
 
-      {/* Footer */}
-      <div className="w-full py-3 bg-zinc-800 border-t border-zinc-700">
+      <div className="w-full py-3 bg-zinc-900 border-t border-zinc-700">
         <marquee
           behavior="scroll"
           direction="left"
