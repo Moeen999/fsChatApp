@@ -18,9 +18,9 @@ const MessageContainer = () => {
     <>
       {!selectedUser?._id ? (
         <>
-          <div className="w-full h-screen flex flex-col justify-center items-center">
-            <h2 className="text-xl">Welcome! to <span className="tracking-wider font-bold">SphereTalk</span>!</h2>
-            <p className="text-2xl text-gray-500">
+          <div className="w-full h-screen flex flex-col justify-center items-center px-4">
+            <h2 className="text-xl text-center"><span className="tracking-wider font-bold">SphereTalk</span> By Moeen</h2>
+            <p className="text-lg md:text-2xl text-gray-500 text-center">
               Select a user to start conversation
             </p>
           </div>
