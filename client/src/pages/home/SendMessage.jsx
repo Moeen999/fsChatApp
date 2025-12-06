@@ -2,6 +2,7 @@ import { useState } from "react";
 import { IoIosSend } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { sendMessageThunk } from "../../store/slice/messageslice/message.thunk";
+import toast from "react-hot-toast";
 
 const SendMessage = () => {
   const dispatch = useDispatch();
@@ -10,6 +11,9 @@ const SendMessage = () => {
     (state) => state.userReducer
   );
   const handleSendMessage = async () => {
+    if (message.trim() === ""){
+      return toast.error("Message cannot be empty");
+    };
     await dispatch(
       sendMessageThunk({ receiverId: selectedUser?._id, message })
     );

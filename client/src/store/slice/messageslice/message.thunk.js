@@ -15,7 +15,7 @@ export const sendMessageThunk = createAsyncThunk(
       return res.data;
     } catch (error) {
       const err = error?.response?.data?.errMessage;
-      toast.error(err);
+      console.error(err);
       return rejectWithValue(err);
     }
   }
