@@ -3,6 +3,7 @@ import { FaUser } from "react-icons/fa6";
 import { IoKeySharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { registerUserThunk } from "../../store/slice/userslice/user.thunk";
+import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 const Register = () => {
@@ -32,6 +33,10 @@ const Register = () => {
   };
 
   const handleUserRegister = async () => {
+    if (!inputData.password.length < 8) {
+      toast.error("Password too short! Must be at least 8 characters.");
+      return;
+    }
     const res = await dispatch(registerUserThunk(inputData));
     if (res.payload?.success) {
       navigate("/");
@@ -44,7 +49,9 @@ const Register = () => {
       </h1>
 
       <div className="max-w-[40rem] w-full flex flex-col gap-5 bg-zinc-900 p-6 rounded-lg">
-        <h2 className="flex justify-center items-center textarea-lg md:text-2xl font-semibold">Sign Up to the TalkSphere</h2>
+        <h2 className="flex justify-center items-center textarea-lg md:text-2xl font-semibold">
+          Sign Up to the TalkSphere
+        </h2>
 
         <label className="input input-bordered flex items-center gap-2">
           <FaUser />
@@ -129,7 +136,7 @@ const Register = () => {
       <footer className="w-full bg-zinc-900 text-center py-3 rounded mt-6 fixed bottom-0">
         <marquee behavior="scroll" direction="left" className="text-gray-300">
           <span className="tracking-wider">
-          © {new Date().getFullYear()} All rights reserved by Muhammad Moeen
+            © {new Date().getFullYear()} All rights reserved by Muhammad Moeen
           </span>
         </marquee>
       </footer>

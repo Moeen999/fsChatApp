@@ -49,9 +49,8 @@ const Sidebar = () => {
   };
 
   if (screenLoading)
-    return (
-      <span className="w-screen flex justify-center items-center loading loading-bars"></span>
-    );
+    return <span className="loading loading-spinner loading-xl"></span>;
+
   return (
     <div className="max-w-[20rem] w-full h-screen flex flex-col border-r border-r-white/10 bg-base-100">
       <h1 className="font-extrabold flex justify-center tracking-widest bg-black mx-3 mt-3 rounded-lg px-2 py-1 text-[#7080ff] text-xl">
