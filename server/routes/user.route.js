@@ -6,6 +6,7 @@ import {
   logoutUser,
   otherUsers,
   registerUser,
+  updateAvatar,
 } from "../controllers/user.controller.js";
 import { isAuthenticated } from "../middlewares/auth.middleware.js";
 
@@ -17,6 +18,7 @@ router.post("/logout", isAuthenticated, logoutUser);
 router.get("/get-profile", isAuthenticated, getUserProfile);
 router.get("/get-other-users", isAuthenticated, otherUsers);
 router.delete("/delete-account", isAuthenticated, deleteUser);
+router.patch("/update-avatar", isAuthenticated, updateAvatar);
 
 
 export default router;

@@ -6,9 +6,13 @@ import { sendMessageThunk } from "../../store/slice/messageslice/message.thunk";
 const SendMessage = () => {
   const dispatch = useDispatch();
   const [message, setMessage] = useState("");
-  const { selectedUser } = useSelector((state) => state.userReducer);
-  const handleSendMessage =async () => {
-    await dispatch(sendMessageThunk({ receiverId: selectedUser?._id, message }));
+  const { screenLoading, selectedUser } = useSelector(
+    (state) => state.userReducer
+  );
+  const handleSendMessage = async () => {
+    await dispatch(
+      sendMessageThunk({ receiverId: selectedUser?._id, message })
+    );
     setMessage("");
   };
   return (
@@ -25,7 +29,11 @@ const SendMessage = () => {
           onClick={handleSendMessage}
           className="btn btn-square btn-outline btn-primary"
         >
-          <IoIosSend fontSize={24} />
+          {screenLoading ? (
+            <span className="loading loading-spinner loading-xs"></span>
+          ) : (
+            <IoIosSend fontSize={24} />
+          )}
         </button>
       </div>
     </div>

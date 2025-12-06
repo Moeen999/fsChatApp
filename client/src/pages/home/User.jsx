@@ -3,13 +3,15 @@ import { setSelecteduser } from "../../store/slice/userslice/user.slice";
 
 const User = ({ otherUsers }) => {
   const dispatch = useDispatch();
-  const { isLoading, selectedUser } = useSelector((state) => state.userReducer);
+  const { screenLoading, selectedUser } = useSelector(
+    (state) => state.userReducer
+  );
   const { onlineUsers } = useSelector((state) => state.socketReducer);
   const isActive = onlineUsers?.includes(otherUsers?._id);
   const handleUserclick = () => {
     dispatch(setSelecteduser(otherUsers));
   };
-  if (isLoading) {
+  if (screenLoading) {
     <div className="flex justify-center items-center w-full h-full">
       <span className="loading loading-spinner loading-3xl"></span>
     </div>;

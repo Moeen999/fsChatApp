@@ -109,3 +109,26 @@ export const deleteUser = asyncHandler(async (req, res, next) => {
       message: "Account Deleted Successfully",
     });
 });
+
+export const updateAvatar = asyncHandler(async (req, res, next) => {
+  const userId = req.user?.id;
+  const { avatar } = req.body; 
+
+  if (!avatar) {
+    return next(new errorHandler("No avatar provided", 400));
+  }
+
+  const user = await User.findById(userId);
+  if (!user) {
+    return next(new errorHandler("User not found", 404));
+  }
+
+  user.avatar = avatar;
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    responseData: user,
+    message: "Avatar updated successfully",
+  });
+});
