@@ -39,7 +39,7 @@ const Home = () => {
   return (
     <div className="flex relative h-screen">
       <button
-        className="md:hidden fixed top-4 left-4 z-50 btn btn-sm btn-ghost"
+        className="md:hidden fixed top-4 right-4 z-50 btn btn-sm btn-ghost"
         onClick={() => dispatch(toggleSidebar())}
       >
         <GiHamburgerMenu size={20} />

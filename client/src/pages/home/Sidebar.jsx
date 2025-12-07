@@ -136,21 +136,28 @@ const Sidebar = () => {
             type="text"
             className="grow"
             placeholder="Search Friends....."
+            disabled={otherUsersProfile?.length === 0}
             onChange={handleSearchChange}
           />
           <IoSearch />
         </label>
       </div>
 
-      <div className="flex flex-col gap-3 h-screen overflow-y-scroll px-3">
-        {filteredUsers
-          ?.filter((u) => u?._id !== userProfile?._id)
-          .map((otherUsers) => (
-            <div key={otherUsers?._id} onClick={handleUserSelect}>
-              <User otherUsers={otherUsers} />
-            </div>
-          ))}
-      </div>
+      <>
+        {!otherUsersProfile || otherUsersProfile.length === 0 ? (
+          <p className="text-center text-gray-500 mt-10">No Users Found</p>
+        ) : (
+          <div className="flex flex-col gap-3 h-screen overflow-y-scroll px-3">
+            {filteredUsers
+              ?.filter((u) => u?._id !== userProfile?._id)
+              .map((otherUsers) => (
+                <div key={otherUsers?._id} onClick={handleUserSelect}>
+                  <User otherUsers={otherUsers} />
+                </div>
+              ))}
+          </div>
+        )}
+      </>
 
       <div className="bg-zinc-800 flex justify-between items-center p-3 mt-auto">
         <div className="flex gap-4 avatar justify-center items-center">
