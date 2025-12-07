@@ -12,7 +12,9 @@ export const registerUserThunk = createAsyncThunk(
         password,
         gender,
       });
-      toast.success("User Registered Successfully");
+      if(res?.data){
+        toast.success(res?.data?.message);
+      }
       return res.data;
     } catch (error) {
       const err = error?.response?.data?.errMessage;
@@ -30,7 +32,9 @@ export const loginUserthunk = createAsyncThunk(
         username,
         password,
       });
-      toast.success("Login Successful");
+      if (res?.data) {
+        toast.success(res?.data?.message);
+      }
       return res.data;
     } catch (error) {
       const err = error?.response?.data?.errMessage;

@@ -33,9 +33,8 @@ const Register = () => {
   };
 
   const handleUserRegister = async () => {
-    if (!inputData.password.length < 8) {
-      toast.error("Password too short! Must be at least 8 characters.");
-      return;
+    if (inputData.password.length < 6) {
+      return toast.error("Password too short! Must be at least 8 characters.");
     }
     const res = await dispatch(registerUserThunk(inputData));
     if (res.payload?.success) {
