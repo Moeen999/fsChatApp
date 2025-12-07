@@ -11,7 +11,7 @@ const AccountDelete = () => {
   const handleAccountDelete = async () => {
     const res = await dispatch(deleteUserThunk());
     if (res.meta.requestStatus === "fulfilled") {
-      navigate("/login");
+      navigate("/register");
       toast.success("Account Deleted Successfully!!")
     }
   };
